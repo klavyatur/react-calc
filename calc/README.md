@@ -25,7 +25,7 @@ Get started: clone repository, get familiar with file structure, run "npm start"
 Plan: Do you want to build using primarily functional or class components? What components do you need? (create files that you think you'll need) What components will be stateful and what do you think you need to store in state?
 
 ## Task 3:
-Render buttons visually: Visually render the calculator buttons and create the area at the top where the current number will display. Think about how you want to group the buttons into <div> elements or even separate components in order to get them to appear in the proper order according to the plan image. 
+Render buttons visually: Visually render the calculator buttons and create the area at the top where the current number will display. Think about how you want to group the buttons into "div" elements or even separate components in order to get them to appear in the proper order according to the plan image. 
 
 - You can find the font from the plan image (DotGothic) on Google fonts [here](https://fonts.google.com/specimen/DotGothic16?preview.text_type=custom&preview.text=3#standard-styles).
 - For the special symbols, you can choose to use special symbols in the DotGothic font, type in the DotGothic font (ex. Can use "<<" instead of the arrow symbol for backspace), or can get symbols from a source like Font Awesome [here](https://fontawesome.com/).
