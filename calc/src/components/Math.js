@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import Button from './Button';
 
-const Calculator = () => {
+const Math = (props) => {
 
-  const [ display, setDisplay ] = useState('0');
-  const [ firstNum, setFirstNum ] = useState('0');
-  const [ secondNum, setSecondNum ] = useState('0');
-  const [ secondTrue, setSecondTrue ] = useState(false);
+  const [ display, setDisplay ] = useState(0);
+  const [ firstNum, setFirstNum ] = useState(null);
+  const [ secondNum, setSecondNum ] = useState(null);
   const [ mathOp, setMathOp ] = useState('');
 
-  const buttons = ["c", "<<", "%", '7', '8', '9', "x", '4', '5', '6', "-", '1', '2', '3', "+", "±", "="]
-  const buttonDisplay = [];
 
   function handleClick(e) {
     e.preventDefault();
@@ -18,13 +14,11 @@ const Calculator = () => {
     let click = e.target.value;
 
     console.log("e.target.value", e.target.value)
-    console.log(Number(click));
-    
     if(click === "c") {
       console.log("eh?")
-      setDisplay('0');
-      setFirstNum('0');
-      setSecondNum('0');
+      setDisplay(0);
+      setFirstNum(null);
+      setSecondNum(null);
       setMathOp('');
       return;
     } 
@@ -39,29 +33,32 @@ const Calculator = () => {
       setMathOp(click);
       setFirstNum(display);
       setDisplay(click);
-      setSecondTrue(true);
       console.log(firstNum)
       return;
     }
-    if (secondTrue && Number(click)) {
-      if(secondNum === '0') {
-        setSecondNum(click);
+    if (mathOp.length === 1 && firstNum !== 0) {
+      if(secondNum) {
+        let set2Num = secondNum + click;
+        setSecondNum(set2Num);
       } else {
-        setSecondNum(secondNum.concat(click));
+        setSecondNum(click);
       }
       setDisplay(secondNum);
-      return;
+    } else if (mathOp.length === 1 && secondNum !== 0) {
+        if (mathOp === '+') return addNums();
+        if (mathOp === '-') return subtractNums();
+        if (mathOp === 'x') return multiplyNums();
+        if (mathOp === '/') return divideNums();
     } else {
-      if (firstNum === '0') {
-        setFirstNum(click);
+      if(firstNum) {
+        let set1Num = firstNum + click;
+        setFirstNum(set1Num);
+        console.log(firstNum);
       } else {
-        setFirstNum(firstNum.concat(click));
+        setFirstNum(click);
       }
-      setDisplay(firstNum);
-      return;
+      setDisplay(firstNum)
     }
-
-
     console.log('display', display)
     console.log('firstNum', firstNum)
     console.log('secondNum', secondNum)
@@ -69,11 +66,9 @@ const Calculator = () => {
   }
 
   function addNums() {
-    console.log('ha')
     let sum = Number(firstNum) + Number(secondNum);
     setFirstNum(sum);
-    setSecondNum('0');
-    setSecondTrue(false);
+    setSecondNum(null);
     setDisplay(sum);
     setMathOp('');
     return;
@@ -82,8 +77,7 @@ const Calculator = () => {
   function subtractNums() {
     let result = Number(firstNum) - Number(secondNum);
     setFirstNum(result);
-    setSecondNum('0');
-    setSecondTrue(false);
+    setSecondNum(null);
     setDisplay(result);
     setMathOp('');
     return;
@@ -92,8 +86,7 @@ const Calculator = () => {
   function multiplyNums() {
     let result = Number(firstNum) * Number(secondNum);
     setFirstNum(result);
-    setSecondNum('0');
-    setSecondTrue(false);
+    setSecondNum(null);
     setDisplay(result);
     setMathOp('');
     return;
@@ -102,21 +95,13 @@ const Calculator = () => {
   function divideNums() {
     let result = Number(firstNum) / Number(secondNum);
     setDisplay(result);
-    setFirstNum(result);
-    setSecondNum('0');
-    setSecondTrue(false);
     setMathOp('');
     return;
   }
 
-  buttons.forEach(el => buttonDisplay.push(<button key={el} value={el} onClick={handleClick}>{el}</button>))
 
-  return (
-    <div style={{border: '1px solid black' }}>
-      <div>{display}</div>        
-      <div>{buttonDisplay}</div>
-    </div>
-  )
 }
 
-export default Calculator;
+
+
+export default Math;
